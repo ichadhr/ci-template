@@ -89,6 +89,8 @@ class User extends BaseController
 					// if the login is successful
 					$this->ajaxData['succeed']  = TRUE;
 					$this->ajaxData['messages'] = successDelimiter($this->ionAuth->messages());
+					// set additional session
+					$this->_session_login();
 				} else {
 					// if the login was un-successful
 					$this->ajaxData['succeed']  = FALSE;
@@ -172,5 +174,29 @@ class User extends BaseController
 	{
 		$this->viewData['title'] = 'Forgot password';
 		return $this->_renderPage('\Modules\User\Views\forgot_password', $this->viewData);
+	}
+
+	// hooks after login set data to session
+	private function _session_login()
+	{
+		$user  = $this->ionAuth->user($this->session->get('user_id'))->row();
+		$group =  $this->ionAuth->getUsersGroups($this->session->get('user_id'))->getRow();
+
+		$datetimeFormat = 'd-m-Y H:i:s';
+		$date           = new \DateTime('now', new \DateTimeZone('Asia/Jakarta'));
+		$date->setTimestamp($this->session->get('old_last_login'));
+
+		$data = [
+			'full_name'            => $user->first_name . ' ' . $user->last_name,
+			'first_name'           => $user->first_name,
+			'last_name'            => $user->last_name,
+			'group'                => $group->description,
+			'group_name'           => $group->name,
+			'group_id'             => $group->id,
+			'readadble_last_login' => $date->format($datetimeFormat)
+		];
+
+		// set new data to session
+		$this->session->set($data);
 	}
 }

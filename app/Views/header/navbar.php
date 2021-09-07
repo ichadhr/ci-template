@@ -20,8 +20,8 @@
 
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
-                        <img class="avatar" data-name="<?php echo session()->get('fname'); ?>"
-                            data-last-name="<?php echo session()->get('lname'); ?>" alt="">
+                        <img class="avatar" data-name="<?php echo session()->get('first_name'); ?>"
+                            data-last-name="<?php echo session()->get('last_name'); ?>" alt="">
                         <span><?php echo session()->get('username'); ?></span>
                         <i class="caret"></i>
                     </a>
