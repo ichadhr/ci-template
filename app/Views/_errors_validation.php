@@ -1,0 +1,1 @@
+<label id="basic-error" class="validation-error-label" for="basic"><?php echo esc($error); ?></label>

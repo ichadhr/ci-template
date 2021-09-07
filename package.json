@@ -1,0 +1,28 @@
+{
+  "name": "ci4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "none",
+  "repository": "gitlab:ichadhr/ci4.git",
+  "author": "ichadhr@gmail.com",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^3.10.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.1.0",
+    "gulp-less": "^4.0.1",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-strip-comments": "^2.5.2",
+    "gulp-uglify": "^3.0.1",
+    "gulp-util": "^3.0.8",
+    "jshint": "^2.9.6"
+  },
+  "dependencies": {
+    "eslint": "^5.14.1",
+    "natives": "^1.1.6"
+  }
+}
