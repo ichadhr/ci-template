@@ -55,7 +55,7 @@ $(function() {
 
                         setTimeout(function () {
                             var uri = location.protocol + '//' + location.host;
-                            window.location.replace(uri + '/');
+                            window.location.replace(uri + '/dashboard');
                         }, 500);
                     }
 

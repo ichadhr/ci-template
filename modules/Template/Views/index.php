@@ -4,7 +4,7 @@
         <!-- Meta name -->
         <?php echo $this->include('header/meta'); ?>
 
-        <title><?php echo $title; ?></title>
+        <title><?php echo htmlspecialchars($title); ?></title>
 
         <!-- Global stylesheets -->
         <?php echo $this->include('header/global'); ?>
@@ -21,10 +21,10 @@
 
             <div class="page-header-content">
                 <div class="page-title">
-                    <h4><i class="<?php echo config('SiteConfig')->iconDashboard; ?> position-left <?php echo config('SiteConfig')->generalIconColor; ?>"></i> <span class="text-semibold"><?php echo $title; ?></span></h4>
+                    <h4><i class="<?php echo htmlspecialchars($titleIcon); ?> position-left <?php echo htmlspecialchars(config('SiteConfig')->generalIconColor); ?>"></i> <span class="text-semibold"><?php echo htmlspecialchars($title); ?></span></h4>
                     <ul class="breadcrumb position-right">
-                        <li><a href="<?php echo base_url('dashboard'); ?>"><?php echo lang('Interface.menu.sidebar.dashboard'); ?></a></li>
-                        <li class="active"><?php echo $title; ?></li>
+                        <li><a href="<?php echo htmlspecialchars(base_url('dashboard')); ?>"><?php echo htmlspecialchars(lang('Interface.menu.sidebar.dashboard')); ?></a></li>
+                        <li class="active"><?php echo htmlspecialchars($title); ?></li>
                     </ul>
                 </div>
             </div>
@@ -58,7 +58,7 @@
         <?php echo $this->include('footer/core');?>
         <!-- Theme JS files -->
 
-        <script type="text/javascript" src="<?php echo base_url('assets/js/core/app.min.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo htmlspecialchars(base_url('assets/js/core/app.min.js')); ?>"></script>
         <!-- /theme JS files -->
     </body>
 </html>

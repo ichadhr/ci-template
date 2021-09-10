@@ -6,6 +6,7 @@
 namespace Modules\User\Controllers;
 
 use App\Controllers\BaseController;
+use Modules\User\Models;
 
 class User extends BaseController
 {
@@ -15,12 +16,6 @@ class User extends BaseController
 	 * @var \CodeIgniter\Validation\Validation
 	 */
 	protected $validation;
-
-	// init view data
-	protected array $viewData = [];
-
-	// init ajax data
-	protected array $ajaxData = [];
 
 	public function __construct()
 	{
@@ -38,11 +33,16 @@ class User extends BaseController
 		if (!$this->ionAuth->loggedIn()) {
 			// redirect them to the login page
 			return redirect()->to('login');
-		} elseif (!$this->ionAuth->isAdmin()) {
-			$this->response->setStatusCode(403);
-		} else {
-			echo 'hello';
 		}
+
+		if (!$this->ionAuth->isAdmin()) {
+			return $this->response->setStatusCode(401);
+		}
+
+		$this->viewData['title']     = 'Users';
+		$this->viewData['titleIcon'] = config('SiteConfig')->iconUser;
+
+		return $this->_renderPage('\Modules\User\Views\index', $this->viewData);
 	}
 
 	/**
@@ -64,12 +64,12 @@ class User extends BaseController
 
 		// validate form input
 		if ('email' === $authIdentity) {
-			$this->validation->setRule('identity', str_replace(':', '', lang('Interface.userForm.email')), 'required|valid_email');
+			$this->validation->setRule('identity', str_replace(':', '', lang('Interface.user.form.email')), 'required|valid_email');
 		} else {
-			$this->validation->setRule('identity', str_replace(':', '', lang('Interface.userForm.username')), 'required');
+			$this->validation->setRule('identity', str_replace(':', '', lang('Interface.user.form.username')), 'required');
 		}
 
-		$this->validation->setRule('password', str_replace(':', '', lang('Interface.userForm.password')), 'required');
+		$this->validation->setRule('password', str_replace(':', '', lang('Interface.user.form.password')), 'required');
 
 		if ($this->request->getPost() && $this->request->isAJAX()) {
 			// check form validation passed
@@ -107,6 +107,8 @@ class User extends BaseController
 			return $this->_renderJson($this->ajaxData);
 		}
 
+		$this->viewData['iconIdentity'] = 'email' === $authIdentity ? 'icon-envelop' : 'icon-user';
+
 		// setup form
 		if ('email' === $authIdentity) {
 			$this->viewData['identity'] = [
@@ -114,7 +116,7 @@ class User extends BaseController
 				'id'           => 'identity',
 				'type'         => 'text',
 				'class'        => 'form-control',
-				'placeholder'  => lang('Interface.userForm.email'),
+				'placeholder'  => lang('Interface.user.form.email'),
 				'autofocus'    => '',
 				'autocomplete' => 'off',
 				'value'        => set_value('identity')
@@ -125,7 +127,7 @@ class User extends BaseController
 				'id'           => 'identity',
 				'type'         => 'text',
 				'class'        => 'form-control',
-				'placeholder'  => lang('Interface.userForm.username'),
+				'placeholder'  => lang('Interface.user.form.username'),
 				'autofocus'    => '',
 				'autocomplete' => 'off',
 				'value'        => set_value('identity')
@@ -137,7 +139,7 @@ class User extends BaseController
 			'id'           => 'password',
 			'type'         => 'password',
 			'class'        => 'form-control',
-			'placeholder'  => lang('Interface.userForm.password'),
+			'placeholder'  => lang('Interface.user.form.password'),
 			'autocomplete' => 'off'
 		];
 
@@ -177,14 +179,14 @@ class User extends BaseController
 	}
 
 	// hooks after login set data to session
-	private function _session_login()
+	private function _session_login() : void
 	{
 		$user  = $this->ionAuth->user($this->session->get('user_id'))->row();
 		$group =  $this->ionAuth->getUsersGroups($this->session->get('user_id'))->getRow();
 
 		$datetimeFormat = 'd-m-Y H:i:s';
-		$date           = new \DateTime('now', new \DateTimeZone('Asia/Jakarta'));
-		$date->setTimestamp($this->session->get('old_last_login'));
+		$date           = new \DateTime('now');
+		$date->setTimestamp((int) $this->session->get('old_last_login'));
 
 		$data = [
 			'full_name'            => $user->first_name . ' ' . $user->last_name,
@@ -198,5 +200,19 @@ class User extends BaseController
 
 		// set new data to session
 		$this->session->set($data);
+	}
+
+	/**
+	 * list of user in json format (Datatable)
+	 */
+	public function listJson() : object
+	{
+		if (!$this->ionAuth->loggedIn() && !$this->ionAuth->isAdmin()) {
+			return $this->_renderError(401);
+		}
+
+		$user = new \Modules\User\Models\UserModel();
+
+		return $this->_renderDatatable($user->listJson());
 	}
 }

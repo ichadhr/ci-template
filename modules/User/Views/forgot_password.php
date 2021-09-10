@@ -25,8 +25,8 @@
                 <div class="panel panel-body login-form <?php echo config('SiteConfig')->borderTopLogin; ?>">
                     <div class="text-center">
                         <div class="icon-object border-slate-300 text-slate-300"><i class="icon-spinner11"></i></div>
-                        <h5 class="content-group-lg"><?php echo lang('Interface.forgot_password.heading'); ?><small
-                                class="display-block"><?php echo lang('Interface.forgot_password.sub_heading'); ?></small></h5>
+                        <h5 class="content-group-lg"><?php echo lang('Interface.pages.forgotPassword.heading'); ?><small
+                                class="display-block"><?php echo lang('Interface.pages.forgotPassword.subHeading'); ?></small></h5>
                     </div>
 
                     <div class="form-group has-feedback has-feedback-right">
@@ -47,11 +47,11 @@
 
                     <span class="help-block text-center no-margin">
                         &copy; <?php call_user_func(function (string $y) {
-    $c = date('Y');
-    echo $y . (($y != $c) ? ' - ' . $c : '');
+	$c = date('Y');
+	echo $y . (($y != $c) ? ' - ' . $c : '');
 }, config('SiteConfig')->startDev);
-        echo ' ' . config('SiteConfig')->appName;
-        ?>
+		echo ' ' . config('SiteConfig')->appName;
+		?>
                         <br />
                     </span>
 

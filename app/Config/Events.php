@@ -23,15 +23,12 @@ use CodeIgniter\Exceptions\FrameworkException;
  */
 
 Events::on('pre_system', function () {
-	if (ENVIRONMENT !== 'testing')
-	{
-		if (ini_get('zlib.output_compression'))
-		{
+	if (ENVIRONMENT !== 'testing') {
+		if (ini_get('zlib.output_compression')) {
 			throw FrameworkException::forEnabledZlibOutputCompression();
 		}
 
-		while (ob_get_level() > 0)
-		{
+		while (ob_get_level() > 0) {
 			ob_end_flush();
 		}
 
@@ -46,9 +43,40 @@ Events::on('pre_system', function () {
 	 * --------------------------------------------------------------------
 	 * If you delete, they will no longer be collected.
 	 */
-	if (CI_DEBUG && ! is_cli())
-	{
+	if (CI_DEBUG && !is_cli()) {
 		Events::on('DBQuery', 'CodeIgniter\Debug\Toolbar\Collectors\Database::collect');
 		Services::toolbar()->respond();
 	}
+});
+
+Events::on('post_controller_constructor', function () {
+	while (ob_get_level() > 0) {
+		ob_end_flush();
+	}
+
+	ob_start(function ($buffer) {
+		$search = [
+			'/(\n|^)(\x20+|\t)/',
+			'/(\n|^)\/\/(.*?)(\n|$)/',
+			'/\n/',
+			'/\<\!--.*?-->/',
+			'/(\x20+|\t)/', # Delete multispace (Without \n)
+			'/\>\s+\</', # strip whitespaces between tags
+			'/(\"|\')\s+\>/', # strip whitespaces between quotation ("') and end tags
+			'/=\s+(\"|\')/']; # strip whitespaces between = "'
+
+		$replace = [
+			"\n",
+			"\n",
+			' ',
+			'',
+			' ',
+			'><',
+			'$1>',
+			'=$1'
+		];
+
+		$buffer = preg_replace($search, $replace, $buffer);
+		return $buffer;
+	});
 });

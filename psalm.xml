@@ -13,6 +13,8 @@
         <directory name="public" />
         <ignoreFiles>
             <directory name="vendor" />
+            <file name="modules/**/Views/*.php" />
+            <file name="app/Views/*.php" />
         </ignoreFiles>
     </projectFiles>
     <issueHandlers>
@@ -25,7 +27,10 @@
                 <referencedFunction name="Modules\User\Controllers\lang" />
                 <referencedFunction name="Modules\User\Controllers\successDelimiter" />
                 <referencedFunction name="Modules\User\Controllers\errorDelimiter" />
+                <referencedFunction name="Modules\User\Controllers\infoDelimiter" />
                 <referencedFunction name="Modules\User\Controllers\set_value" />
+                <referencedFunction name="Modules\user\Controllers\config" />
+                <referencedFunction name="Modules\Template\Controllers\config" />
                 <referencedFunction name="helper" />
                 <referencedFunction name="config" />
                 <referencedFunction name="lang" />
@@ -39,9 +44,17 @@
                 <referencedFunction name="current_url" />
                 <referencedFunction name="uri_string" />
                 <referencedFunction name="csrf_token" />
+                <referencedFunction name="App\Controllers\csrf_token" />
+                <referencedFunction name="App\Controllers\csrf_hash" />
+                <referencedFunction name="App\Models\config" />
                 <referencedFunction name="menuActive" />
                 <referencedFunction name="menuBase" />
             </errorLevel>
         </UndefinedFunction>
+        <UndefinedClass>
+            <errorLevel type="suppress">
+                <referencedClass name="Modules\User\Controllers\UserModel" />
+            </errorLevel>
+        </UndefinedClass>
     </issueHandlers>
 </psalm>

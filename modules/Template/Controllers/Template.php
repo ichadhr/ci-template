@@ -2,17 +2,17 @@
 /**
  * Modules template controllers
  */
-namespace Modules\Template\Controllers;
-use App\Controllers\BaseController;
 
+namespace Modules\Template\Controllers;
+
+use App\Controllers\BaseController;
 
 class Template extends BaseController
 {
-    protected array $data = [];
-
-    public function index()
-    {
-        $this->data['title'] = "Template";
-		return $this->_renderPage('\Modules\Template\Views\index', $this->data);
-    }
+	public function index()
+	{
+		$this->viewData['title']     = 'Template';
+		$this->viewData['titleIcon'] = config('SiteConfig')->iconDashboard;
+		return $this->_renderPage('\Modules\Template\Views\index', $this->viewData);
+	}
 }

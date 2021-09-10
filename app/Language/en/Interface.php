@@ -1,32 +1,49 @@
 <?php
 
 return [
-    'menu' => [
-        'sidebar' => [
-            'dashboard' => 'Dashboard',
-            'user'      => 'Users'
-        ]
-    ],
-    'userForm' => [
-        'username' => 'Username',
-        'email'    => 'Email',
-        'password' => 'Password',
-    ],
-    'login' => [
-        'heading'         => 'Login to your account',
-        'sub_heading'     => 'Enter your credentials',
-        'remember'        => 'Remember',
-        'forgot_password' => 'Forgot password?',
-        'divider'         => 'Don\'t have an account?',
-        'username_label'  => 'Username'
-    ],
-    'forgot_password' => [
-        'heading'     => 'Password recovery',
-        'sub_heading' => 'We\'ll send you instructions in email'
-    ],
-    'btn' => [
-        'login'    => 'Login',
-        'register' => 'Register',
-        'reset'    => 'Reset'
-    ]
+	'menu' => [
+		'sidebar' => [
+			'dashboard' => 'Dashboard',
+			'user'      => 'Users'
+		]
+	],
+	'pages' => [
+		'login' => [
+			'heading'        => 'Login to your account',
+			'subHeading'     => 'Enter your credentials',
+			'remember'       => 'Remember',
+			'forgotPassword' => 'Forgot password?',
+			'divider'        => 'Don\'t have an account?'
+		],
+		'forgotPassword' => [
+			'heading'    => 'Password recovery',
+			'subHeading' => 'We\'ll send you instructions in email'
+		],
+		'user' => [
+			'panel' => [
+				'headPanel' => 'List users'
+			],
+			'table' => [
+				'headUsername' => 'Username',
+				'headFullname' => 'Name',
+				'headEmail'    => 'Email',
+				'headGroup'    => 'Groups',
+				'headStatus'   => 'Status',
+				'headAction'   => 'Action'
+			]
+		]
+	],
+	'btn' => [
+		'login'    => 'Login',
+		'register' => 'Register',
+		'reset'    => 'Reset',
+		'add'      => 'Add'
+	],
+	'user' => [
+		'form' => [
+			'username' => 'Username',
+			'email'    => 'Email',
+			'password' => 'Password',
+		]
+	]
 ];

@@ -22,4 +22,6 @@ class SiteConfig extends BaseConfig
 	public string $infoStartDelimiter     = '<div class="alert alert-info no-border"><button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>';
 	public string $errorStartDelimiter    = '<div class="alert alert-danger no-border"><button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>'; // Error message start
 	public string $endDelimiter           = '</div>';  // Message end delimiter
+
+	public string $hashSalt = ''; // salt for hashids
 }

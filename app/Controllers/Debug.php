@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Libraries\Datatable;
+
 class Debug extends BaseController
 {
 	protected array $data = [];
@@ -9,9 +11,7 @@ class Debug extends BaseController
 	/**
 	 * @psalm-suppress UndefinedMethod
 	 */
-	public function index() : string
+	public function index()
 	{
-		$this->data['home'] = 'home';
-		return $this->_renderPage('welcome_message', $this->data);
 	}
 }

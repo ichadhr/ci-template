@@ -15,13 +15,11 @@ if (!function_exists('menuBase')) {
 	 */
 	function menuBase() : void
 	{
-		$root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
+		$currentPage = $_SERVER['REQUEST_URI'];
 
-		if (base_url() === $root) {
+		if (base_url() === $currentPage) {
 			echo 'class="active"';
 		}
-
-		// return $validURI;
 	}
 }
 

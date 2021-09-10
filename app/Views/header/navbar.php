@@ -1,7 +1,7 @@
 <div id="grad-navbar" class="navbar navbar-inverse navbar-fixed-top ">
         <div class="navbar-header">
-            <a class="navbar-brand" href="<?php echo base_url('dashboard'); ?>">
-                <img src="<?php echo base_url('assets/themes/images/logo.png'); ?>" alt="<?php echo config('SiteConfig')->appName; ?>">
+            <a class="navbar-brand" href="<?php echo htmlspecialchars(base_url('dashboard')); ?>">
+                <img src="<?php echo htmlspecialchars(base_url('assets/themes/images/logo.png')); ?>" alt="<?php echo htmlspecialchars(config('SiteConfig')->appName); ?>">
             </a>
 
             <ul class="nav navbar-nav pull-right visible-xs-block">
@@ -20,20 +20,20 @@
 
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
-                        <img class="avatar" data-name="<?php echo session()->get('first_name'); ?>"
-                            data-last-name="<?php echo session()->get('last_name'); ?>" alt="">
-                        <span><?php echo session()->get('username'); ?></span>
+                        <img class="avatar" data-name="<?php echo htmlspecialchars(session()->get('first_name')); ?>"
+                            data-last-name="<?php echo htmlspecialchars(session()->get('last_name')); ?>" alt="">
+                        <span><?php echo htmlspecialchars(session()->get('username')); ?></span>
                         <i class="caret"></i>
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-right">
                         <li <?php echo menuActive('account');?>>
-                            <a href="<?php echo base_url('/user/update'); ?>"><i class=" icon-user"></i>
+                            <a href="<?php echo htmlspecialchars(base_url('/user/update')); ?>"><i class=" icon-user"></i>
                                 Account</a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="<?php echo base_url('logout'); ?>"><i class="icon-switch2"></i> Logout</a>
+                            <a href="<?php echo htmlspecialchars(base_url('logout')); ?>"><i class="icon-switch2"></i> Logout</a>
                         </li>
                     </ul>
                 </li>

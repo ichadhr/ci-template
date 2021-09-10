@@ -4,7 +4,7 @@
 <head>
     <!-- Meta name -->
     <?php echo $this->include('header/meta');?>
-    <title><?php echo $title; ?></title>
+    <title><?php echo htmlspecialchars($title); ?></title>
     <!-- Global stylesheets -->
     <?php echo $this->include('header/global');?>
 </head>
@@ -22,11 +22,11 @@
             
                 <!-- Login form -->
                 <?php echo form_open((string) current_url(TRUE), 'id="login-form" autocomplete="off" spellcheck="false"'); ?>
-                <div class="panel panel-body login-form <?php echo config('SiteConfig')->borderTopLogin; ?>">
+                <div class="panel panel-body login-form <?php echo htmlspecialchars(config('SiteConfig')->borderTopLogin); ?>">
                     <div class="text-center">
                         <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
-                        <h5 class="content-group-lg"><?php echo lang('Interface.login.heading'); ?><small
-                                class="display-block"><?php echo lang('Interface.login.sub_heading'); ?></small></h5>
+                        <h5 class="content-group-lg"><?php echo htmlspecialchars(lang('Interface.pages.login.heading')); ?><small
+                                class="display-block"><?php echo htmlspecialchars(lang('Interface.pages.login.subHeading')); ?></small></h5>
                     </div>
 
                     <div id="messages"><?php echo session()->get('messages'); ?></div>
@@ -34,7 +34,7 @@
                     <div class="form-group has-feedback has-feedback-left">
                         <?php echo form_input($identity); ?>
                         <div class="form-control-feedback">
-                            <i class="icon-envelop text-muted"></i>
+                            <i class="<?php echo $iconIdentity; ?> text-muted"></i>
                         </div>
                         <span id="identity_error">
                         </span>
@@ -54,34 +54,34 @@
                             <div class="col-sm-6">
                                 <label class="checkbox-inline">
                                     <?php echo form_checkbox('remember', '1', FALSE, 'class="styled"'); ?>
-                                    <?php echo lang('Interface.login.remember'); ?> 
+                                    <?php echo htmlspecialchars(lang('Interface.pages.login.remember')); ?> 
                                 </label>
                             </div>
                             <div class="col-sm-6 text-right">
-                                <a href="/forgot_password"><?php echo lang('Interface.login.forgot_password'); ?></a>
+                                <a href="/forgot_password"><?php echo htmlspecialchars(lang('Interface.pages.login.forgotPassword')); ?></a>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <button type="submit" data-loading-text="<i class='icon-spinner3 spinner'></i>"
-                            class="btn btn-shadow btn-loading <?php echo config('SiteConfig')->generalBtnColor; ?>  btn-block"><?php echo lang('Interface.btn.login'); ?><i
+                            class="btn btn-shadow btn-loading <?php echo htmlspecialchars(config('SiteConfig')->generalBtnColor); ?>  btn-block"><?php echo htmlspecialchars(lang('Interface.btn.login')); ?><i
                                 class="icon-arrow-right14 position-right"></i></button>
                     </div>
 
                     <div class="content-divider text-muted form-group">
-                        <span><?php echo lang('Interface.login.divider'); ?></span>
+                        <span><?php echo lang('Interface.pages.login.divider'); ?></span>
                     </div>
                     <a href="/register"
-                        class="btn btn-default btn-block content-group"><?php echo lang('Interface.btn.register'); ?></a>
+                        class="btn btn-default btn-block content-group"><?php echo htmlspecialchars(lang('Interface.btn.register')); ?></a>
 
                     <span class="help-block text-center no-margin">
                         &copy; <?php call_user_func(function (string $y) {
 	$c = date('Y');
-	echo $y . (($y != $c) ? ' - ' . $c : '');
+	echo htmlspecialchars($y . (($y != $c) ? ' - ' . $c : ''));
 }, config('SiteConfig')->startDev);
-						echo ' ' . config('SiteConfig')->appName;
-						?>
+						echo htmlspecialchars(' ' . config('SiteConfig')->appName);
+						?>.
                         <br />
                     </span>
 
@@ -100,22 +100,22 @@
     <!-- /page container -->
 
     <!-- Core JS files -->
-    <script type="text/javascript" src="<?php echo base_url('assets/js/plugins/loaders/pace.min.js'); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/core/libraries/jquery.min.js'); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/core/libraries/bootstrap.min.js'); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/themes/plugins/jscookie/js.cookie.min.js'); ?>">
+    <script type="text/javascript" src="<?php echo htmlspecialchars(base_url('assets/js/plugins/loaders/pace.min.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo htmlspecialchars(base_url('assets/js/core/libraries/jquery.min.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo htmlspecialchars(base_url('assets/js/core/libraries/bootstrap.min.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo htmlspecialchars(base_url('assets/themes/plugins/jscookie/js.cookie.min.js')); ?>">
     </script>
     <!-- /core JS files -->
 
     <!-- Theme JS files -->
-    <script type="text/javascript" src="<?php echo base_url('assets/js/plugins/forms/styling/uniform.min.js'); ?>">
+    <script type="text/javascript" src="<?php echo htmlspecialchars(base_url('assets/js/plugins/forms/styling/uniform.min.js')); ?>">
     </script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/plugins/notifications/sweet_alert.min.js'); ?>">
+    <script type="text/javascript" src="<?php echo htmlspecialchars(base_url('assets/js/plugins/notifications/sweet_alert.min.js')); ?>">
     </script>
 
-    <script type="text/javascript" src="<?php echo base_url('assets/js/core/app.min.js'); ?>"></script>
+    <script type="text/javascript" src="<?php echo htmlspecialchars(base_url('assets/js/core/app.min.js')); ?>"></script>
     <!-- /theme JS files -->
-    <script type="text/javascript" src="<?php echo base_url('assets/themes/js/pages/login.min.js'); ?>"></script>
+    <script type="text/javascript" src="<?php echo htmlspecialchars(base_url('assets/themes/js/pages/login.min.js')); ?>"></script>
 
 </body>
 

@@ -10,14 +10,14 @@
                     <!-- Main -->
                     <li <?php echo menuActive('dashboard'); ?> <?php echo menuBase(); ?> >
                         <a href="<?php echo base_url('dashboard'); ?>"><i
-                                class="<?php echo config('SiteConfig')->iconDashboard; ?>"></i>
-                            <span><?php echo lang('Interface.menu.sidebar.dashboard'); ?></span></a>
+                                class="<?php echo htmlspecialchars(config('SiteConfig')->iconDashboard); ?>"></i>
+                            <span><?php echo htmlspecialchars(lang('Interface.menu.sidebar.dashboard')); ?></span></a>
                     </li>
 
                     <li <?php echo menuActive('user'); ?> >
                         <a href="<?php echo base_url('user'); ?>"><i
-                                class="<?php echo config('SiteConfig')->iconUser; ?>"></i>
-                            <span><?php echo lang('Interface.menu.sidebar.user'); ?></span></a>
+                                class="<?php echo htmlspecialchars(config('SiteConfig')->iconUser); ?>"></i>
+                            <span><?php echo htmlspecialchars(lang('Interface.menu.sidebar.user')); ?></span></a>
                     </li>
 
                 </ul>

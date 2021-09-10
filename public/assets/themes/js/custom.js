@@ -84,6 +84,58 @@ var UIWait = function () {
 	}, 500);
 };
 
+// handle ajax error using sweet_alert
+var ErrorHandle = function (xhr, thrownError) {
+	// get error text
+	var msger = $(xhr.responseText).find('.er-column > p').text();
+	// fix footer
+	$('.footer').hide();
+	// set different message
+	if (xhr.status === 403) {
+		// alert
+		swal({
+				title: "<span style='color:#ef5350'>" +
+					xhr.statusText +
+					'</span>',
+				text: msger,
+				confirmButtonColor: '#ef5350',
+				type: 'error',
+				html: true,
+			},
+			function (isConfirm) {
+				if (isConfirm) {
+					location.reload();
+					window.onbeforeunload = function () {
+						window.scrollTo(0, 0);
+					};
+
+					window.location.href = URL_Login;
+				}
+			}
+		);
+	} else {
+		// alert
+		swal({
+				title: "<span style='color:#ef5350'>An error has occurred</span>",
+				text: "If this error persists, contact your system administrator.<br/><span style='color:#ef5350; font-size:12px'>ERROR: " +
+					msger +
+					'</span>',
+				confirmButtonColor: '#ef5350',
+				type: 'error',
+				html: true,
+			},
+			function (isConfirm) {
+				if (isConfirm) {
+					location.reload();
+					window.onbeforeunload = function () {
+						window.scrollTo(0, 0);
+					};
+				}
+			}
+		);
+	}
+};
+
 $(function () {
 
 	// load avatar
@@ -95,4 +147,10 @@ $(function () {
 	$(document).scroll(function () {
 		elm.toggleClass("shadow", elm.offset().top > 0);
 	});
+
+	// setup ajax error
+    $(document).ajaxError(function (event, xhr, settings, thrownError) {
+        $.unblockUI();
+        ErrorHandle(xhr, thrownError);
+    });
 });

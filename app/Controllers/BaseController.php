@@ -61,10 +61,20 @@ class BaseController extends Controller
 	 */
 	protected array $viewData;
 
+	/**
+	 * ajax data render
+	 *
+	 * @var array
+	 */
+	protected array $ajaxData;
+
 	public function __construct()
 	{
 		// init $viewData
 		$this->viewData = [];
+
+		// init $ajaxData
+		$this->ajaxData = [];
 	}
 
 	/**
@@ -90,10 +100,13 @@ class BaseController extends Controller
 
 		// IonAuth config
 		$this->configIonAuth = config('IonAuth');
+
+		// set default timezone
+		date_default_timezone_set('Asia/Jakarta');
 	}
 
 	/**
-	 * render specific view
+	 * render view
 	 *
 	 * @param string $view
 	 * @param array|null $data
@@ -109,17 +122,80 @@ class BaseController extends Controller
 	}
 
 	/**
-	 * Undocumented function
+	 * render json
 	 *
-	 * @param string|array $data
+	 * @param array $data
 	 * @param boolean $token
 	 * @param boolean $validate
 	 * @return object
 	 */
-	protected function _renderJson(string|array $data = NULL) : object
+	protected function _renderJson(?array $data = []) : object
 	{
 		$data['sec_n'] = csrf_token();
 		$data['sec_h'] = csrf_hash();
 		return $this->response->setStatusCode(200)->setContentType('application/json', 'utf-8')->setJSON($data);
+	}
+
+	/**
+	 * render json datatable
+	 *
+	 * @param string|null $data
+	 * @return object
+	 */
+	protected function _renderDatatable(?string $data) : object
+	{
+		return $this->response->setStatusCode(200)->setContentType('application/json', 'utf-8')->setJSON($data);
+	}
+
+	protected function _renderError(int $httpStatus, string $message = NULL) : object
+	{
+		$error = [];
+
+		if (!$message) {
+			switch ($httpStatus) {
+				case 400:
+					$error['error'] = [
+						'code'        => $httpStatus,
+						'message'     => 'Bad Request',
+						'description' => 'The request could not be understood by the server due to malformed syntax.'
+					];
+					break;
+				case 401:
+					$error['error'] = [
+						'code'        => $httpStatus,
+						'message'     => 'Unauthorized',
+						'description' => 'The request requires user authentication.'
+					];
+					break;
+				case 404:
+					$error['error'] = [
+						'code'        => $httpStatus,
+						'message'     => 'Not Found',
+						'description' => 'The server has not found anything matching the Request-URI.'
+					];
+					break;
+				case 500:
+					$error['error'] = [
+						'code'        => $httpStatus,
+						'message'     => 'Internal Server Error',
+						'description' => 'The server encountered an unexpected condition which prevented it from fulfilling the request.'
+					];
+					break;
+				default:
+					$error['error'] = [
+						'code'        => 0,
+						'message'     => 'An error has occurred',
+						'description' => 'If this error persists, contact your system administrator.'
+					];
+					break;
+			}
+		} else {
+			$error['error'] = [
+				'code'    => $httpStatus,
+				'message' => $message
+			];
+		}
+
+		return $this->response->setStatusCode($httpStatus)->setContentType('application/json', 'utf-8')->setJSON($error);
 	}
 }

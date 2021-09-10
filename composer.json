@@ -7,7 +7,9 @@
 	"require": {
 		"php": "^7.3||^8.0",
 		"codeigniter4/framework": "^4",
-		"benedmunds/codeigniter-ion-auth": "4.x-dev"
+		"benedmunds/codeigniter-ion-auth": "4.x-dev",
+		"ozdemir/datatables": "dev-master",
+		"jenssegers/optimus": "dev-master"
 	},
 	"require-dev": {
 		"fakerphp/faker": "^1.9",
